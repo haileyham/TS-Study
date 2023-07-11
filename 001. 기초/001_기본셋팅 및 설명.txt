@@ -1,0 +1,101 @@
+# 1. TypeScript 쓰는 이유
+- 자바스크립트는 Dynamic typing을 지원하는 언어
+- 타입스크립트는 에러로 잡아줌
+
+---------------------------------------
+# 2. TypeScript 설치
+2-1. Nodejs
+
+2-2. npm install -g typescript 
+- 한번만 설치하면됨
+
+2-3. 폴더 열고 .ts 파일 만들기
+- 웹브라우저는 ts 파일 인식 못하기에 js 파일로 변환 작업 
+
+2-4. Terminal 에 tsc -w 입력해두면 자동으로 ts 파일을 js 파일로 근처 변환
+- HTML 파일 등에서 타입스크립트로 작성한 코드 사용하기 위해서는 .ts가 아닌 변환된 .js파일 사용
+<script src="변환된파일.js"></script>
+
+2-5. tsconfig.json
+```
+{
+    "compilerOptions":{
+        "target":"es5", 
+        "module": "commonjs",
+    }
+}
+```
+- 'target'은 타입스크립트파일을 어떤 버전의 자바스크립트로 바꿔줄지 정하는 부분. es5로 셋팅해놓으면 es5 버전 자바스크립트로 컴파일(변환) 해줌. 신버전을 원하면 es2016, esnext 이런 것도 입력가능.
+- 'module'은 자바스크립트 파일간 import 문법을 구현할 때 어떤 문법을 쓸지 정하는 곳이며, commonjs는 require 문법. es2015, esnext는 import 문법을 사용.
+- 어느정도 IE 호환성을 원하시면 es5, commonjs 사용하는데 신버전 자바스크립트만 표현가능한 그런 문법들은 (예를 들어 BigInt() 이런 함수와 bigint 타입) esnext 등으로 버전을 올려줘야 사용가능.
+
+[추가]
+
+```
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "strictNullChecks": true
+    }
+}
+```
+- noImplicitAny는 any라는 타입이 의도치않게 발생할 경우 에러를 띄워주는 설정
+- strictNullChecks는 null, undefined 타입에 이상한 조작하면 에러를 띄우는 설정
+- 나중에 실제 개발할 때 사용해보기
+
+[tsconfig에 들어갈 기타 항목들]
+- 대부분 건드릴 필요 없음
+- 전체는 https://www.typescriptlang.org/tsconfig 확인 가능
+
+```
+{
+ "compilerOptions": {
+
+  "target": "es5", // 'es3', 'es5', 'es2015', 'es2016', 'es2017','es2018', 'esnext' 가능
+  "module": "commonjs", //무슨 import 문법 쓸건지 'commonjs', 'amd', 'es2015', 'esnext'
+  "allowJs": true, // js 파일들 ts에서 import해서 쓸 수 있는지 
+  "checkJs": true, // 일반 js 파일에서도 에러체크 여부 
+  "jsx": "preserve", // tsx 파일을 jsx로 어떻게 컴파일할 것인지 'preserve', 'react-native', 'react'
+  "declaration": true, //컴파일시 .d.ts 파일도 자동으로 함께생성 (현재쓰는 모든 타입이 정의된 파일)
+  "outFile": "./", //모든 ts파일을 js파일 하나로 컴파일해줌 (module이 none, amd, system일 때만 가능)
+  "outDir": "./", //js파일 아웃풋 경로바꾸기
+  "rootDir": "./", //루트경로 바꾸기 (js 파일 아웃풋 경로에 영향줌)
+  "removeComments": true, //컴파일시 주석제거 
+
+  "strict": true, //strict 관련, noimplicit 어쩌구 관련 모드 전부 켜기
+  "noImplicitAny": true, //any타입 금지 여부
+  "strictNullChecks": true, //null, undefined 타입에 이상한 짓 할시 에러내기 
+  "strictFunctionTypes": true, //함수파라미터 타입체크 강하게 
+  "strictPropertyInitialization": true, //class constructor 작성시 타입체크 강하게
+  "noImplicitThis": true, //this 키워드가 any 타입일 경우 에러내기
+  "alwaysStrict": true, //자바스크립트 "use strict" 모드 켜기
+
+  "noUnusedLocals": true, //쓰지않는 지역변수 있으면 에러내기
+  "noUnusedParameters": true, //쓰지않는 파라미터 있으면 에러내기
+  "noImplicitReturns": true, //함수에서 return 빼먹으면 에러내기 
+  "noFallthroughCasesInSwitch": true, //switch문 이상하면 에러내기 
+ }
+}
+```
+
+---------------------------------------
+# 3. React 프로젝트에서 TypeScript 사용
+3-1. 이미 있는 React 프로젝트에 설치
+npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+
+3-2. React 프로젝트 새로 만들어서 사용
+npx create-react-app my-app --template typescript
+
+---------------------------------------
+# 4. Vue 프로젝트에서 Typescript 사용할 경우
+4-1. vue add typescript
+- 라이브러리 설치
+
+4-2. vue파일에서 타입스크립트를 쓰려면
+<script lang="ts">
+  
+</script>
+- 이렇게 lang 옵션을 켜두고 쓰면 알아서 잘 됨.
+- Vue 프로젝트 내에서도 tsconfig.json 파일 만들어서 설정도 자유롭게 가능.
