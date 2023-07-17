@@ -173,4 +173,24 @@ let 민수쌤 = { subject: ['science', 'art', 'korean'] }
 ```
  */
 
+function 과목(x:{ subject : string|string[] }) {
+    if (typeof x.subject === 'string') {
+        return x.subject
+    } else if (Array.isArray(x.subject)) {//배열인지 확인 isArray()
+        return x.subject[x.subject.length - 1]
+    } else {
+        return '없음'
+    }
+}
+console.log(과목({subject:'math'}));
+console.log(과목({ subject: ['math', 'music'] }));
+
+/**
+JS에서 데이터 타입 확인하기 위해서는 typeof를 사용 하지만 typeof를 사용하여 배열을 검색하면, typeof는 'object'를 리턴함. 배열은 'object'의 특수 형태이기 때문
+따라서 typeof만으로는 객체가 배열인지 확인 불가.
+객체가 배열인지 확인하기 위해서는 'is Array()'함수 사용
+
+Array.isArray(obj)
+파라미터로 입력받은 obj가 배열인지 여부를 boolean값으로 리턴(true > 볼록 내부 실행)
+*/
 //------------------------------------------------------------//
