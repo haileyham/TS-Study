@@ -43,6 +43,7 @@ const 동물2 : Animal2 = {
 //------------------------------------------------------------//
 
 // type변수 : union type으로 합치기 가능
+// OR 연산자 통해서 Union type 만들기
 type Name = string;
 type Age = number;
 type person = Name | Age;
