@@ -17,4 +17,17 @@ var 동물2 = {
     name: 'cat'
 };
 var position = { x: 10, y: 20 };
-// type HelloType = number; //에러
+var 테스트변수 = {
+    size: 30,
+    position: [1, 2, 3]
+};
+var 테스트변수2 = {
+    name: 'ham',
+    phone: 123,
+    email: 'abc@naver.com'
+};
+var 테스트변수3 = {
+    name: 'ham',
+    phone: 123,
+    adult: true
+};
