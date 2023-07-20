@@ -52,3 +52,39 @@ function 함수21() {
 //2. 파라미터를 a 자리에 집어넣어서 함수21() 실행
 //------------------------------------------------------------//
 //------------------------------------------------------------//
+//[2]
+/**
+다음 함수2개를 만들어보고 타입까지 정의해보기.
+- cutZero()라는 함수를 만듭시다. 이 함수는 문자를 하나 입력하면 맨 앞에 '0' 문자가 있으면 제거하고 문자 type으로 return 해줍니다.
+- removeDash()라는 함수를 만듭시다. 이 함수는 문자를 하나 입력하면 대시기호 '-' 가 있으면 전부 제거해주고 그걸 숫자 type으로 return 해줍니다.
+- 함수에 타입지정시 type alias를 꼭 써보도록 합시다.
+물론 문자제거 하는 방법을 모른다면 구글검색이 필요합니다.
+ */
+// 기본 //방식이 틀렸음, 첫 시작으로 0 한개만 오는게 아니라 000오게되면 전부 잡지 못함. 첫시작이 0이 안되게 하는게 조건이니까 정규식으로 바꾸기(밑에 type alias에 정규식으로 적용)
+function cutZero(a) {
+    if (a[0] === '0') {
+        var b = a.toString().slice(1);
+        return b;
+    }
+    else {
+        return a.toString();
+    }
+}
+console.log(cutZero('000a'));
+console.log(cutZero('abc'));
+var cutZero2 = function (a) {
+    return a.replace(/^0+/, "");
+};
+console.log(cutZero2('000a'));
+console.log(cutZero2('abc'));
+//////////////////////////////////////////
+// 기본
+function removeDash(a) {
+    return parseInt(a.replace(/-/g, ''));
+}
+console.log(removeDash('010-123'));
+var removeDash2 = function (a) {
+    return parseInt(a.replace(/-/g, ''));
+};
+console.log(removeDash2('123-456'));
+//------------------------------------------------------------//
