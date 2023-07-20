@@ -54,3 +54,52 @@ var 버튼 = document.querySelector("#button");
 버튼 === null || 버튼 === void 0 ? void 0 : 버튼.addEventListener("click", function () {
     console.log('hello');
 });
+//------------------------------------------------------------//
+//------------------------------------------------------------//
+// [1]
+/**
+<버튼을 누르면 이미지를 바꾸기>
+```
+<img id="image" src="test.jpg">
+```
+html 안에 test.jpg를 보여주고 있는 이미지 태그가 있다고 칩시다.
+이미지를 new.jpg 라는 이미지로 바꾸고 싶으면 자바스크립트 코드를 어떻게 짜야할까요?
+성공여부는 크롬 개발자도구 켜면 src 속성이 잘 바뀌었는지 확인가능하겠죠?
+ */
+var 이미지버튼 = document.querySelector("#button");
+이미지버튼 === null || 이미지버튼 === void 0 ? void 0 : 이미지버튼.addEventListener("click", function () {
+    var 이미지 = document.querySelector("#image");
+    if (이미지 instanceof HTMLImageElement) { //#image가 HTMLImageElement가 맞으면 실행
+        이미지.src = "https://raw.githubusercontent.com/haileyham/character/main/%EC%BA%A1%EC%B2%98.JPG";
+    }
+});
+// 별사진 처음으로 해놓고
+// 버튼안에 이미지넣고 별이미지 누르면 내 캐릭터로 변경되도록 했음
+//------------------------------------------------------------//
+// [2]
+/**
+<바꾸고 싶은 html 요소가 많을 때>
+```
+<a class="naver" href="naver.com">링크</a>
+<a class="naver" href="naver.com">링크</a>
+<a class="naver" href="naver.com">링크</a>
+```
+<img id="image" src="test.jpg">
+3개의 링크가 있는데 이 요소들의 href 속성을 전부 https://www.kakao.com으로 바꾸고 싶은 겁니다.
+자바스크립트 코드를 어떻게 짜야할까요?
+ */
+// forEach
+var 링크2 = document.querySelectorAll(".naver");
+링크2.forEach(function (a) {
+    if (a instanceof HTMLAnchorElement) {
+        a.href = "https://www.kakao.com";
+    }
+});
+// 일반 for 반복문
+var 링크3 = document.querySelectorAll('.naver');
+for (var i = 0; i < 3; i++) {
+    var a = 링크3[i];
+    if (a instanceof HTMLAnchorElement) {
+        a.href = "https://www.kakao.com";
+    }
+}
