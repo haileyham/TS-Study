@@ -2,5 +2,6 @@
     "compilerOptions":{
         "target":"es5", 
         "module": "commonjs",
+        "strictNullChecks": true //"strict"해도됨 /null type들어올 떄 엄격하게 체크
     }
 }
