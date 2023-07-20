@@ -27,12 +27,12 @@ function 함수2( x?:number):void { //파라미터변수? : 타입
 
 //------------------------------------------------------------//
 
-// x 파라미터 옵션 number | undefined라고 해서 x 파라미터 확실하지 않기 때문에 에러 낸다했는데 에러 안내넹
-function 내함수(x?: number): number { 
-    console.log(x * 2)
-    return x * 2 
-}  
-내함수(3)
+// x 파라미터 옵션 number | undefined라고 해서 x 파라미터 확실하지 않기 때문에 에러발생
+// function 내함수(x?: number): number { 
+//     console.log(x * 2)
+//     return x * 2 
+// }  
+// 내함수(3)
 
 //------------------------------------------------------------//
 

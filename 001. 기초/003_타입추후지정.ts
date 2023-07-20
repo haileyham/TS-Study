@@ -30,8 +30,8 @@ let 회원4: unknown;
 // 에러 발생 : 위에서 회원 4 {} 되어있고, 변수2는 string이기 때문에 맞지 않음
 // let 변수2: string = 회원4;
 
-// 정상 작동 : 위에서 회원 4 {}, 변수3도 {} 이기 때문
-let 변수3: {} = 회원4;
+// 정상 작동 : 위에서 회원 4 {}, 변수3도 {} 이기 때문 / strict모드에서는 x / 자료 집어넣어도 타입은 그대로 unknown
+// let 변수3: {} = 회원4;
 
 //------------------------------------------------------------//
 
@@ -63,9 +63,10 @@ let 계산3: unknown = 1;
 //------------------------------------------------------------//
 
 let user :string = 'ham';
-let age :number = undefined;
+// let age :number = undefined; //undefined로 넣으면 strict 모드에서는 error
 let married :boolean = false; 
-let 햄1: (string | number | undefined | boolean)[] = [user, age, married];
+let 햄1: (string | number | undefined | boolean)[] = [user, married];
+// let 햄1: (string | number | undefined | boolean)[] = [user, age, married]; //strict모드에서 age undefined준거 error 떠서 주석처리
 
 //------------------------------------------------------------//
 
