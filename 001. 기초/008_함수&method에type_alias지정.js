@@ -87,4 +87,8 @@ var removeDash2 = function (a) {
     return parseInt(a.replace(/-/g, ''));
 };
 console.log(removeDash2('123-456'));
-//------------------------------------------------------------//
+//이렇게 해도 되고, 아니면 function 함수만들기(a: string, b: MethodType1, c: MethodType2) 해도 됨 //type에 함수를 집어넣는게 아니라, 들어올 함수 타입 정해서 주기
+var 함수만들기 = function (a, b, c) {
+    return c(b(a));
+};
+console.log(함수만들기('010-1111-2222', cutZero2, removeDash2));
