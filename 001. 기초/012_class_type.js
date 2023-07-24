@@ -71,6 +71,24 @@ console.log(car1) //콘솔창 출력결과는 { model : '소나타', price : 300
 console.log(car1.tax()) //콘솔창 출력결과는 300
 ```
 */
+var Car = /** @class */ (function () {
+    function Car(model, price) {
+        this.model = model;
+        this.price = price;
+    }
+    Car.prototype.tax1 = function () {
+        return this.price * 0.1;
+    };
+    Car.prototype.tax2 = function (price) {
+        var tax = price * 0.1;
+        return tax;
+    };
+    return Car;
+}());
+var car1 = new Car('소나타', 3000); // car1은 Car 클래스의 인스턴스
+console.log(car1); // Car {model: '소나타', price: 3000}
+console.log(car1.tax1()); //tax 자동
+console.log(car1.tax2(3000)); //tax를 직접 숫자입력해서 할 때
 //------------------------------------------------------------//
 // [2]
 /*
@@ -87,4 +105,4 @@ let obj = new Word('kim', 3, 5, 'park');
 console.log(obj.num) //[3,5]
 console.log(obj.str) //['kim', 'park']
 ```
-*/ 
+*/

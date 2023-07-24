@@ -86,6 +86,31 @@ console.log(car1.tax()) //콘솔창 출력결과는 300
 ```
 */
 
+class Car{
+    model: string;
+    price: number;
+    constructor(model:string, price:number) {
+        this.model = model;
+        this.price = price;
+    }
+
+    tax1():number {
+        return this.price * 0.1
+    }
+
+    tax2(price: number):number {
+        const tax = price * 0.1 
+        return tax;
+    }
+}
+
+let car1 = new Car('소나타', 3000) // car1은 Car 클래스의 인스턴스
+console.log(car1); // Car {model: '소나타', price: 3000}
+console.log(car1.tax1()); //tax 자동
+console.log(car1.tax2(3000)); //tax를 직접 숫자입력해서 할 때
+
+
+
 //------------------------------------------------------------//
 
 // [2]
@@ -104,3 +129,4 @@ console.log(obj.num) //[3,5]
 console.log(obj.str) //['kim', 'park']
 ```
 */
+
