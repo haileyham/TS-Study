@@ -106,3 +106,64 @@ console.log(obj.num) //[3,5]
 console.log(obj.str) //['kim', 'park']
 ```
 */
+//------------------------------------------------------------//
+var Word = /** @class */ (function () {
+    function Word() {
+        var a = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            a[_i] = arguments[_i];
+        }
+        var _this = this;
+        this.str = [];
+        this.num = [];
+        a.forEach(function (i) {
+            if (typeof i === 'string') {
+                _this.str.push(i);
+            }
+            else if (typeof i === 'number') {
+                _this.num.push(i);
+            }
+        });
+    }
+    return Word;
+}());
+var obj = new Word('ham', 3, 5, 'hailey');
+console.log(obj.str);
+console.log(obj.num);
+/**
+ * 이렇게도 가능
+class Word{
+    num: number[];
+    str: string[];
+    constructor(...a: (number | string)[]) {
+        let 글자 : string[] = [];
+        let 숫자 : number[] = [];
+
+        a.forEach((i) => {
+            if (typeof i === 'string') {
+                글자.push(i)
+            } else{
+                숫자.push(i)
+            }
+        })
+        this.str = 글자;
+        this.num = 숫자;
+    }
+}
+ */
+//------------------------------------------------------------//
+// 참고 : Rest Parameter
+//------------------------------------------------------------//
+var Word1 = /** @class */ (function () {
+    function Word1() {
+        var a = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            a[_i] = arguments[_i];
+        }
+        //Rest 파라미터(Rest Parameter, 나머지 매개변수) : 매개변수 이름 앞에 세개의 ...을 붙여서 정의한 매개변수. Rest 파라미터는 함수에 전달된 인수들의 목록을 배열로 전달 받음
+        //(4) ['ham', 3, 5, 'hailey'] 이렇게 됨
+        console.log(a);
+    }
+    return Word1;
+}());
+var obj1 = new Word1('ham', 3, 5, 'hailey');
