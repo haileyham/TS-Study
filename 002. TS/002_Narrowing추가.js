@@ -35,3 +35,22 @@ function 날날1(animal) {
         animal.swim; //이제는 사용 가능
     }
 }
+//------------------------------------------------------------//
+// [4] instanceof 연산자로 object narrowing
+// 오브젝트 instanceof 부모 class
+// class는 object 뽑는 기계라 생각(위에서 오브젝트 instanceof 부모class는  => 부모가 누군지 검사)
+// object 두개 비슷하면 부모 class 누군지 물어봐서 narrowing 가능
+//------------------------------------------------------------//
+var 날짜 = new Date(); //Date는 class임
+if (날짜 instanceof Date) { //날짜가 Date로 부터 생성됐는지 (부모맞는지) / narrowing 가능 / true 면 조건문 실행
+}
+function 자동자전(x) {
+    if (x.wheel === '4개') { // x파라미터로 들어온것이 자동차일 경우 이거 실행해주세요~ / 즉 x.wheel 이 4개이면 '자동차' 타입이 들어온것임
+        console.log('the car is ' + x.color);
+    }
+    else { //2개이면 이거 실행
+        console.log('the bike is ' + x.color);
+    }
+}
+자동자전({ wheel: '4개', color: 'red' });
+// 논리적으로 이 타입인지 특정지을 수 있으면 narrowing으로 인정해쥼.
