@@ -180,6 +180,47 @@ console.log(숫자최댓값3(1, 2, 3, 300, 5, 85, 4))
 (조건2) 함수실행시 입력한 파라미터의 value들 (kim, [3,5,4] 이런거)을 전부 콘솔창에 출력해줘야합니다.
 */
 
+function 입력파({user, comment, admin}:{user:string, comment:number[], admin:boolean}):void {
+    console.log(user);
+    console.log(comment);
+    console.log(admin);
+}
+
+입력파({ user: 'kim', comment: [3, 5, 4], admin: false });
+
+// 혹은 object 타입지정해서 하기
+
+type UserType = {
+    user: string,
+    comment: number[],
+    admin: boolean
+}
+
+function 입력파2({user, comment, admin}:UserType):void {
+    console.log(user);
+    console.log(comment);
+    console.log(admin);
+}
+
+입력파2({ user: 'kim', comment: [3, 5, 4], admin: false });
+
+// 혹은 object type interface 사용하기
+
+interface UserType2{
+    user: string,
+    comment: number[],
+    admin: boolean
+}
+
+function 입력파3({ user, comment, admin }: UserType2): void{
+    console.log(user);
+    console.log(comment);
+    console.log(admin);
+}
+
+입력파3({ user: 'kim', comment: [3, 5, 4], admin: false });
+
+
 //------------------------------------------------------------//
 
 // [3]

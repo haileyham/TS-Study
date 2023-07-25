@@ -172,6 +172,27 @@ console.log(숫자최댓값3(1, 2, 3, 300, 5, 85, 4));
 (조건1) 오늘 배운 파라미터 destructuring 문법을 써봅시다.
 (조건2) 함수실행시 입력한 파라미터의 value들 (kim, [3,5,4] 이런거)을 전부 콘솔창에 출력해줘야합니다.
 */
+function 입력파(_a) {
+    var user = _a.user, comment = _a.comment, admin = _a.admin;
+    console.log(user);
+    console.log(comment);
+    console.log(admin);
+}
+입력파({ user: 'kim', comment: [3, 5, 4], admin: false });
+function 입력파2(_a) {
+    var user = _a.user, comment = _a.comment, admin = _a.admin;
+    console.log(user);
+    console.log(comment);
+    console.log(admin);
+}
+입력파2({ user: 'kim', comment: [3, 5, 4], admin: false });
+function 입력파3(_a) {
+    var user = _a.user, comment = _a.comment, admin = _a.admin;
+    console.log(user);
+    console.log(comment);
+    console.log(admin);
+}
+입력파3({ user: 'kim', comment: [3, 5, 4], admin: false });
 //------------------------------------------------------------//
 // [3]
 /*
