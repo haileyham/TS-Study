@@ -8,6 +8,14 @@ var 선생 = { name: 'hailey', age: 20 };
 var 학생1 = { name: 'ham' };
 var 선생1 = { name: 'hailey', age: 20 };
 var 학생Test = { name: 'ham', score: 100 };
-// let 학생Test1: StudentTest55 = { name: 'ham' }; //여기 name에서 에러 발생
-// & : 합치는게 아니라 왼,오른쪽 둘다 만족하는 타입이기 때문
-// name이 name이고 number이고 둘다 만족할 수는 없음
+var 상품 = { brand: 'Samsung', serialNumber: 1360, model: ['TV', 'phone'] };
+var 장바구니 = [{ product: '청소기', price: 7000 }, { product: '삼다수', price: 800 }];
+var 계산옵 = {
+    plus: function (a, b) {
+        return a + b;
+    },
+    minus: function (a, b) {
+        return a - b;
+    }
+};
+// [복습 008] 함수 type 지정은 () => {}
