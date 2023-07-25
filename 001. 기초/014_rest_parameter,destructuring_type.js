@@ -204,3 +204,8 @@ function 입력파3(_a) {
 (조건1) 오늘 배운 파라미터 destructuring 문법을 써봅시다.
 (조건2) 함수실행시 입력한 파라미터들을 전부 콘솔창에 출력해줘야합니다.
 */
+function 다입력(_a) {
+    var num = _a[0], drink = _a[1], car = _a[2];
+    console.log(num, drink, car);
+}
+다입력([40, 'wine', false]);

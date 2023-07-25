@@ -234,3 +234,10 @@ function 입력파3({ user, comment, admin }: UserType2): void{
 (조건2) 함수실행시 입력한 파라미터들을 전부 콘솔창에 출력해줘야합니다.
 */
 
+function 다입력([num, drink, car]: (number|string|boolean)[]):void {
+    console.log(num, drink, car);
+}
+
+다입력([40, 'wine', false]);
+
+
