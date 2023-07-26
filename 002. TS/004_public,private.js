@@ -59,3 +59,22 @@ console.log(유저4); //{familyName: 'you', name: 'haileyyou'}
 유저4.이름변경함수();
 console.log(유저4); //{familyName: 'youyou', name: 'haileyyou'}
 //------------------------------------------------------------//
+// public 키워드 사용하면 this.~~ 생략가능
+//------------------------------------------------------------//
+var User5 = /** @class */ (function () {
+    function User5() {
+    }
+    return User5;
+}());
+new User5;
+//------------------------------------------------------------//
+// constructor 파라미터에 public 붙이면 this.name = name 이거 생략가능
+var User6 = /** @class */ (function () {
+    function User6(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    return User6;
+}());
+var 유저6 = new User6('생략', 10);
+console.log(유저6); // User6 {name: '생략', age: 10}

@@ -80,3 +80,27 @@ console.log(유저4); //{familyName: 'youyou', name: 'haileyyou'}
 
 
 //------------------------------------------------------------//
+// public 키워드 사용하면 this.~~ 생략가능
+//------------------------------------------------------------//
+
+class User5{
+    name; //name만 사용해도 되긴하지만 constructor을 사용해야 파라미터 사용가능
+    constructor() { //이렇게 함께 쓰는데 축약을 하고 싶다면?
+        
+    }
+}
+
+new User5;
+
+//------------------------------------------------------------//
+
+// constructor 파라미터에 public 붙이면 this.name = name 이거 생략가능
+
+class User6{
+    constructor(public name:string, public age:number) { // 이 자리에 들어온 파라미터는 자식의 name, age 속성에 기입
+        
+    }
+}
+
+let 유저6 = new User6('생략', 10);
+console.log(유저6); // User6 {name: '생략', age: 10}
