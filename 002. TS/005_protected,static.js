@@ -31,4 +31,16 @@ var 클래스복사 = /** @class */ (function (_super) {
     return 클래스복사;
 }(클래스원본));
 var 클래스확인 = new 클래스복사();
-console.log(클래스확인);
+console.log(클래스확인); //클래스복사  x: 10  [[Prototype]]: 클래스원본
+//------------------------------------------------------------//
+var User10 = /** @class */ (function () {
+    function User10() {
+        this.z = 10;
+    }
+    User10.x = 10;
+    User10.y = 20;
+    return User10;
+}());
+var 클래스확인1 = new User10();
+console.log(클래스확인1); // static 사용하면 자식들 물려주지 않음
+console.log(User10.y); // static 사용해서 접근하려면 User10.y 로 접근해야함
