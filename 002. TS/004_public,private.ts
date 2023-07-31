@@ -25,6 +25,7 @@ console.log(유저1.name); //안녕
 // class에서 사용하는
 // private 키워드
 // 데이터를 외부로부터 보호하고 싶을 때 자주 사용하는 패턴
+// 자식들 사용불가능
 //------------------------------------------------------------//
 
 class User2{
@@ -36,7 +37,8 @@ class User2{
 }
 
 let 유저2 = new User2('ham2');
-// console.log(유저2.name); // 불가
+console.log(유저2); //User2 {name: 'ham2'} private이여도 출력은 됨
+// console.log(유저2.name); // 불가(자식요소에서 접근, 사용불가능)
 
 // 유저2.name = "수정불가"; // private 붙으면 class 안에서만 수정, 이용가능
 // console.log(유저2.name);
