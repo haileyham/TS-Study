@@ -123,3 +123,51 @@ console.log(전문가요2); //User12 {intro: 'Korean전문가입니다'}
 //------------------------------------------------------------//
 // 사실 숨기고 싶으면 protected, private을 사용하는게 나음
 // private 쓰고 그 다음에 수정함수 만들어서 사용하는게 더 안전
+//------------------------------------------------------------//
+//------------------------------------------------------------//
+//[1]
+/*
+다음 x, y, z 속성의 특징을 설명해보십시오.
+```
+class User {
+    private static x = 10;
+    public static y = 20;
+    protected z = 30;
+}
+```
+x와 y는 누가 쓸 수 있고, 어디서 수정할 수 있는지 이런 것들
+*/
+/*
+우선 x와 y는 static 키워드로 인하여 부모요소에서만 접근해서 사용할 수 있다.(인스턴스.x 혹은 인스턴스.y 불가 // User.x 혹은 User.y 로만 접근 가능)
+private static x는 class내부에서만 수정이 가능하고, public static y는 class 내외부 상관없이 수정이 가능하다.
+의 경우 extends로 복사를 했을 때, 사용이 가능하다.
+*/
+// 이하 직접 경험해보기
+var UserTTT = /** @class */ (function () {
+    function UserTTT() {
+        this.z = 30;
+    }
+    UserTTT.prototype.함수 = function () {
+        UserTTT.x;
+        // this.x; // 자식요소들 사용불가로 this 대신에 UserTTT사용해야함
+        UserTTT.y;
+        // this.y;
+        // UserTTT.z; // 일반의 경우 그냥 this사용
+        this.z;
+    };
+    UserTTT.x = 10;
+    UserTTT.y = 20;
+    return UserTTT;
+}());
+var UserTTT복사 = /** @class */ (function (_super) {
+    __extends(UserTTT복사, _super);
+    function UserTTT복사() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return UserTTT복사;
+}(UserTTT));
+var 테스트복사사 = new UserTTT();
+var 테스트복사사2 = new UserTTT복사();
+// console.log(UserTTT.x); // private은 class 외부에서 접근 불가
+console.log(UserTTT.y); // public은 class 내외부 접근 가능
+console.log(테스트복사사2.z); // protected는 extends 내부에서 사용가능(사실 protected도 private과 유사하게 class 내부에서만 사용 가능)
