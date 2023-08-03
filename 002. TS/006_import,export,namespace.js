@@ -20,3 +20,9 @@ var MyNamespace;
 (function (MyNamespace) {
     ;
 })(MyNamespace || (MyNamespace = {}));
+var Dog2;
+(function (Dog2) {
+    ;
+})(Dog2 || (Dog2 = {}));
+var dog1 = 'haha';
+var dog2 = { name: 'hoho' };
