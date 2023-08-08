@@ -78,7 +78,8 @@ type aaaa2 = 타입추출2 < () => void >; // aaaa2  = void
 //이렇게 하면 string[] 입력했을때 R을 남겨줌 // R 타입이됨 = string type 됨
 
 //------------------------------------------------------------//
-// ReturnType
+// ReturnType 예약어
+// 여기에 함수타입 집어넣으면 return 타입만 뽑아서 알려줌
 
 type bbbb2 = ReturnType<() => void> // bbbb2 = void
 
@@ -103,6 +104,12 @@ let age2 :Age<[boolean, number]>;
 이걸 만족하는 type Age를 만들어보기.
 */
 
+type Age100<T> = T extends [string, ...any] ? T[0] : unknown; // T에 [string, ...any] 있는지 확인후, 있으면 T[0] 출력, 아니면 unknown
+// string, ...any 이기 때문에 첫번째꺼 들어오는거에 따라서 결정됨
+
+let agee1 :Age100<[string, number]>;
+let agee2 :Age100<[boolean, number]>; 
+
 //------------------------------------------------------------//
 
 // [2]
@@ -112,3 +119,10 @@ let age2 :Age<[boolean, number]>;
 타입뽑기<(x :string) => void> //이러면 string이 이 자리에 남음
 아무튼 함수의 파라미터타입이 남아야함.
 */
+
+type 파라미터타입뽑기기계2 = ReturnType<() => void>
+
+type 파라미터타입뽑기기계<T> = T extends ((x: infer R) => void) ? R : any; //infer R 은 왼쪽 T 에서 타입 뽑아옴. T에는 <(x :number) => void>이 들어있는데 지금 infer R을 넣은 곳에는 number타입이 들어가있으므로 R은 number타입 혹은 string 타입이 됨.
+
+type aaaaaa = 파라미터타입뽑기기계<(x :number) => void>
+type aaaaaa2 = 파라미터타입뽑기기계<(x :string) => void>
