@@ -97,6 +97,8 @@ let arr12: [number, number, ...number[]] = [4, 5, ...arr10];
 (예시) [ '동서녹차', 4000, true ] 이런 자료 만들고 타입지정하라는 소리입니다.
 */
 
+let 사먹은음식: [string, number, true] = ['파스타,감바스,트러플감튀', 77000, true];
+
 //------------------------------------------------------------//
 
 // [2]
@@ -108,6 +110,8 @@ let arr = ['동서녹차', 4000, true, false, true, true, false, true]
 몇개인지는 모르겠지만 true와 false가 셋째 자료부터 잔뜩 들어올 수 있다고 합니다. 
 tuple 타입과 spread 연산자를 써보도록 합시다. 
 */
+
+let arr몇개냥궁 : [string,number,...boolean[]] = ['동서녹차', 4000, true, false, true, true, false, true]
 
 //------------------------------------------------------------//
 
@@ -126,6 +130,11 @@ function 함수(){
 오늘 배운 tuple 타입과 rest parameter를 사용해봅시다.
 */
 
+function 함슈타입지정(...a:[string, boolean, ...(string|number)[]]) {// a가 아니라 ...a여야함
+    
+}
+함슈타입지정('a', true, 6, 3, '1', 4)
+
 //------------------------------------------------------------//
 
 // [4]
@@ -138,3 +147,18 @@ function 함수(){
 (동작예시)
 함수('b', 5, 6, 8, 'a') 이렇게 사용할 경우 이 자리에 [ ['b', 'a'], [5, 6, 8] ] 이 return 되어야합니다.
 */
+
+function 분류기(...a:(string|number)[]) {
+    let result: [string[], number[]] = ([[], []]);
+
+    a.forEach((x) => {
+        if (typeof x === 'string') {
+            result[0].push(x)
+        } else {
+            result[1].push(x)
+        }
+    })
+    return result;
+}
+
+분류기('b', 5, 6, 8, 'a');
