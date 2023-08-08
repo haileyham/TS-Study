@@ -83,32 +83,19 @@ JavaScript에서 배열은 length라는 내장된 속성을 가지고 있습니�
 함수<string>('hello') 이렇게 사용하면 콘솔창에 5가 나와야합니다.
 함수<string[]>( ['kim', 'park'] ) 이렇게 사용하면 콘솔창에 2가 나와야합니다.
 */
-//------------------------------------------------------------//
-// [2]
-/*
-Animal 이라는 타입이 있습니다.
-```
-interface Animal {
-    name : string;
-    age : number
+function 갯수파악(a) {
+    console.log(a.length);
+    return a.length;
 }
-
-let data = '{"name" : "dog", "age" : 1 }'
-```
-그리고 data라는 변수도 있습니다. object처럼 생겼지만 따옴표 쳐진 JSON 자료입니다.
-data라는 JSON 자료를 object { } 자료로 변환을 해서 return 해주는 함수를 만들어보십시오.
-근데 변환된 object의 타입은 Animal이 되었으면 좋겠는데 어떻게 코드를 짜면 될까요?
-오늘 배운 Generic을 이용해서 구현해보도록 합시다.
-
-(동작 예시)
-함수<Animal>(data) 이렇게 쓰면 이 자리에 { name : 'dog' , age : 1 } 이런 object 자료가 남아야합니다. 근데 타입은 Animal임
-
-[JSON]
-object 자료형인데 글자로 바꾸려고 전부 따옴표쳐놓은 자료를 JSON 이라고 칭합니다.
-서버랑 통신할 때 가끔 사용합니다.
-JSON --> object 이렇게 변환하고 싶으면 직접 따옴표를 제거하든가 아니면
-JSON.parse() 소괄호 안에 JSON자료를 넣으면 그 자리에 따옴표가 제거된 object가 남습니다.
-*/
+갯수파악('hello');
+갯수파악(['ham', 'hailey']);
+var dataaa = '{"name" : "dog", "age" : 1 }';
+function 치환(a) {
+    return JSON.parse(a);
+}
+치환(dataaa);
+// as 사용하여 쓸 수도 있음 (그렇지만 확장성 면에서는 Generic 좋음 Animal말고도 다른 타입 변환 가능하기 때문)
+// as 사용하면 : return 오른쪽에 as Animal 하드코딩 해놓으면 Generic <> 필요없음
 //------------------------------------------------------------//
 // [3]
 /*
@@ -129,3 +116,13 @@ number를 집어넣으면 number 타입
 string[]을 집어넣으면 string[] 타입이 되게 하려면 위의 코드를 어떻게 수정해야할까요?
 오늘 배운 Generic을 이용해봅시다.
 */
+var PPPerson = /** @class */ (function () {
+    function PPPerson(a) {
+        this.name = a;
+    }
+    return PPPerson;
+}());
+var PPPa = new PPPerson('hihi');
+PPPa.name; //string 
+var PPPa2 = new PPPerson(['hihi']);
+PPPa2.name; //string[]

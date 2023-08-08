@@ -116,6 +116,12 @@ JavaScript에서 배열은 length라는 내장된 속성을 가지고 있습니�
 함수<string[]>( ['kim', 'park'] ) 이렇게 사용하면 콘솔창에 2가 나와야합니다. 
 */
 
+function 갯수파악<Type extends string | string[]>(a: Type) {//a에 뭐 들어올지 모르니까 string|string[]로 narrowing하기
+    console.log(a.length);
+    return a.length;
+}
+갯수파악<string>('hello');
+갯수파악<string[]>(['ham', 'hailey']);
 
 
 //------------------------------------------------------------//
@@ -146,6 +152,22 @@ JSON --> object 이렇게 변환하고 싶으면 직접 따옴표를 제거하�
 JSON.parse() 소괄호 안에 JSON자료를 넣으면 그 자리에 따옴표가 제거된 object가 남습니다. 
 */
 
+interface Animalll{
+    name: string;
+    age:number
+}
+
+let dataaa = '{"name" : "dog", "age" : 1 }'
+
+function 치환<ChangeType>(a: string):ChangeType {//json형태로 들어오기때문에 그냥 파라미터는 string으로 해줌
+    return JSON.parse(a);
+}
+
+치환<Animalll>(dataaa)
+
+// as 사용하여 쓸 수도 있음 (그렇지만 확장성 면에서는 Generic 좋음 Animal말고도 다른 타입 변환 가능하기 때문)
+// as 사용하면 : return 오른쪽에 as Animal 하드코딩 해놓으면 Generic <> 필요없음
+
 
 //------------------------------------------------------------//
 
@@ -168,3 +190,16 @@ number를 집어넣으면 number 타입
 string[]을 집어넣으면 string[] 타입이 되게 하려면 위의 코드를 어떻게 수정해야할까요? 
 오늘 배운 Generic을 이용해봅시다. 
 */
+
+class PPPerson <T2> {
+    name;
+    constructor(a: T2) {
+        this.name = a;
+    }
+}
+
+let PPPa = new PPPerson<string>('hihi');
+PPPa.name; //string 
+
+let PPPa2 = new PPPerson<string[]>(['hihi']);
+PPPa2.name; //string[]
