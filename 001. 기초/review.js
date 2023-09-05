@@ -67,6 +67,33 @@ function 네로네로5(x) {
     var array = [];
     array[0] = x; // x를 number로 인식
 }
+//------------------------------------------------------------//009
+// type narrowing
+// HTML 조작시 narrowing하는 방법 5개(HTML 조작시 querySelector못찾으면 null나오기때문에 필요)
+// 1. if
+// 2. instanceof 연산자 (가장 많이 사용하게 됨)
+// 3. as
+// 4. ?. (optional chaining)
+// 5. tsconfig.json의 strict false로 바꾸기 or (타입스크립트 그냥 쓰지말기zZ)
+//------------------------------------------------------------//
+// 타이틀.innerHTML = "반가워" //error발생 / 마우스 갖다대면 element|null이라고 뜸(union type이라고)
+var 네로네로타이틀 = document.querySelector("#title");
+// [1]
+if (네로네로타이틀 != null) {
+    네로네로타이틀.innerHTML = "반가워용";
+}
+// [2]
+if (네로네로타이틀 instanceof Element) { //HTML이 Element로 오는 것인지 확인 > true로 볼록문 실행
+    // 추후 class에서 object가 class의 자식, instance인지를 확인
+    네로네로타이틀.innerHTML = "반가워용";
+}
+// [3]
+var 네로네로타이틀1 = document.querySelector("#title123잘못입력");
+// as 키워드 사용해서 id 값 입력 잘못해도 Element로 타입지정
+// [4]
+if ((네로네로타이틀 === null || 네로네로타이틀 === void 0 ? void 0 : 네로네로타이틀.innerHTML) != undefined) {
+    네로네로타이틀.innerHTML = "반가웡";
+}
 var 타타타1 = 'ham';
 var 타타타2 = { name: 'ham', age: 100 };
 var 포지션 = { x: 10, y: 20 };
@@ -112,18 +139,21 @@ var 타입지정확실히 = {
 var AsConst사용 = {
     name: 'ham'
 };
-//------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------//
 // array
 //------------------------------------------------------------//
 // 기본
 // Union Type
 //------------------------------------------------------------//
 var 어레이1 = ['he', 'hi'];
-//------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------//
 // object
 //------------------------------------------------------------//
 // 기본
 // Union Type
+// readonly
+// literal type
+// interface
 //------------------------------------------------------------//
 var 오브젝트1 = { age: 100 };
 var 오브젝트2 = {
@@ -131,11 +161,15 @@ var 오브젝트2 = {
     days: 30,
     started: true,
 };
-//------------------------------------------------------------//
+;
+var 인터네모 = { color: 'red', width: 100 };
+//-------------------------------------------------------------------------------------------//
 // 함수
 //------------------------------------------------------------//
 // 기본
 // void 타입
+// () = > {} 화살표함수
+// 함수표현식에서만 type alias 사용가능
 //------------------------------------------------------------//
 function 함수함수1(x) {
     return x * 2;
@@ -146,3 +180,46 @@ function 함수함수2(x) {
 function 함수함수3(x) {
     console.log(x); //출력하면 x는 undefined로 나옴
 }
+// 함수 type alias 사용하려면 '함수표현식' 사용
+var 함수함수4 = function (a) {
+    return parseInt(a) + 10;
+};
+var 함수함수회원정보2 = {
+    name: 'ham',
+    plusOne: function (x) {
+        return x + 1;
+    },
+    changeName: function () {
+        console.log('안녕');
+        return '안녕리턴';
+    }
+};
+//-------------------------------------------------------------------------------------------//
+// TyepeScript Class
+// constructor()
+//------------------------------------------------------------//
+var 클래스타입Person4 = /** @class */ (function () {
+    function 클래스타입Person4() {
+        this.name = "ham"; // constructor 위에서 미리 name 필드값 정했기에, this.name 사용 가능
+    }
+    return 클래스타입Person4;
+}());
+// constructor 파라미터 타입지정 가능
+var 클래스타입Person5 = /** @class */ (function () {
+    function 클래스타입Person5(a) {
+        this.name = a;
+    }
+    return 클래스타입Person5;
+}());
+// prototype 함수 어디에?
+var 프로토타입Person6 = /** @class */ (function () {
+    function 프로토타입Person6(a) {
+        this.name = a;
+    }
+    프로토타입Person6.prototype.함수 = function (a) {
+        // 함수랑 똑같이 파라미터 & retrun 타입 지정 가능
+        console.log("안녕~! " + a);
+        return "a";
+    };
+    return 프로토타입Person6;
+}());
