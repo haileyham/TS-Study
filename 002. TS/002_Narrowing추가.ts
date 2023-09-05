@@ -123,7 +123,7 @@ type 자동차 = {
 }
 
 type 자전거 = {
-    wheel: '4개',
+    wheel: '2개',
     color: string
 }
 
