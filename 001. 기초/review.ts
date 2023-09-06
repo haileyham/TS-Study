@@ -178,6 +178,48 @@ let 포지션: NewType = { x: 10, y: 20 };
 
 
 
+//------------------------------------------------------------//02-016
+// 삼항연산자 타입에 적용
+// 조건식이 참이면 A타입 남겨주고, 참이 아니면 B 타입 남겨주기
+
+// 1. type if 문은 삼항연산자로
+// 2. 조건식은 extends 써야함(extends 왼쪽에 있는게 오른쪽에 있는지)
+
+// infer 키워드
+//------------------------------------------------------------//
+
+type 삼타Agee<T> = T; //이렇게 쓰면 T에 들어오는 type(예를들면 string)이 T로 들어가서 type Agee의 타입은 T = string이 됨
+let 삼타변슈다: 삼타Agee<string> // <>이건 일반 타입변수에도 사용가능 / 변슈다에 Agee타입을 지정하는데 그 Agee는 string 타입이 됨
+
+
+// 파라미터로 string을 집어넣으면 string 남겨주고, 그게 아니면 unknown 남기기
+// 1. type if 문은 삼항연산자로
+// 2. 조건식은 extends 써야함(extends 왼쪽에 있는게 오른쪽에 있는지)
+type 삼타Agee2<T> = T extends string ? string : unknown; // string ? T : number;해도 됨! T에 string 들어와있기 때문
+let 삼타변슈다2 : 삼타Agee2<string> // 변슈다2 타입 string
+let 삼타변슈다3 : 삼타Agee2<number> // 변슈다3 타입 unknown
+
+// 파라미터로 array 타입 입력하면 array 첫 자료의 타입을 남기고,
+// array 타입말고 다른거 입력하면 any 남김
+type 삼타FirstItem<T> = T extends [] ? [] : any; 
+let 삼타변슈다다1 : 삼타FirstItem<[]> // []
+let 삼타변슈다다2: 삼타FirstItem<number> // any
+
+// infer 키워드
+// 조건문에서 쓸 수 있음. 타입을 왼쪽에서 추출해줌
+// infer R : 왼쪽에서 타입 뽑아서 R에 담아주기 (T에서 타입 뽑아주셈)
+// R대신에 다른거 써도되긴하는데 보통 R이라고 씀 (ReturnType쓰기도함)
+type 삼타FirstItem2<T> = T extends infer R ? R : any;  // T:any;해도되긴하는데 infer쓰는 의미를 찾기위해선 R 쓰기
+let 삼타변슈다다딩1 : 삼타FirstItem2<string> // string
+let 삼타변슈다다딩2: 삼타FirstItem2<number> // any
+
+// 왜 사용하는지?
+// infer R ? R : any; 이렇게 사용하기 위해서
+
+// infer 키워드 예시1-3 보기 / 2-016
+
+
+
 //------------------------------------------------------------//
 // readonly : const 객체 재할당 잠그기
 //------------------------------------------------------------//
@@ -256,6 +298,17 @@ let AsConst사용 = {
 // 더 옛날 module
 // export, import (현재)
 //------------------------------------------------------------//
+//------------------------------------------------------------//
+// d.ts 파일
+// test.d.ts 파일 이렇게 사용되는것들?
+// > 타입정의 보관용 파일임 > 다른 ts 파일에서 import 가능
+// 모든 타입을 정리해 놓은 레퍼런스용으로 d.ts 파일 사용
+// tsconfig.json 에 "declaration":true 추가해주면 됨
+// ts파일 만들때마다 d.ts 파일 같이 생성해주는데 type정리해놓기때문에 레퍼런스용으로 좋음(d.ts 자동생성되는 경우 > d.ts 파일수정 하지말기)
+// [d.ts 파일 용도]
+// 1. 타입정의 따로 보관할 파일이 필요할 때 (export,import 해와서 사용)
+// 2. 타입 레퍼런스 생성하고 싶을 때 (tsconfig.json "declareation":true)
+//------------------------------------------------------------//
 
 
 
@@ -264,11 +317,31 @@ let AsConst사용 = {
 //------------------------------------------------------------//
 // 기본
 // Union Type
+// tuple type
 //------------------------------------------------------------//
-
 
 let 어레이1: string[] = ['he', 'hi'];
 
+// array 타입지정 / union 타입지정
+let 유니언멍멍: (string | boolean)[] = ['dog', true]
+
+//------------------------------------------------------------//
+// tuple type
+// 첫 자료는 무조건 string, 둘째 자료는 무조건 boolean(위치까지 고려한 타입지정 가능)
+// 자료의 위치까지 지정하기 때문에 각 위치에 다른 것 들어오면 에러
+// 모든 타입 넣을 수 있음
+//------------------------------------------------------------//
+
+let 튜플멍멍2: [string, boolean] = ['dog', true]
+// 2번째 자료 들어올지말지 모름 ? 붙이기
+// 물음표?는 마지막 순서에만 표시 가능
+let 튜플멍멍3: [string, boolean?] = ['dog']
+// 2개도 표시 가능하지만, 항상 뒤에서부터 물음표 시작해야함!
+let 튜플멍멍6: [string, boolean?, number?] = ['dog', true]
+
+// type 지정할 때 tuple 쓸 수 있음
+// array가 들어오는데 아직 몇개인지 모를 때 사용
+let 튜플arr12: [number, number, ...number[]] = [4, 5, ...arr10]; 
 
 
 //-------------------------------------------------------------------------------------------//
@@ -279,8 +352,11 @@ let 어레이1: string[] = ['he', 'hi'];
 // readonly
 // literal type
 // interface
+// implements
 // type narrowing
-// 속성명 in 옵젝자료
+// 속성명 in 옵젝자료 / 2-002
+// index signatures(object타입지정 한번에 가능)
+// keyof
 //------------------------------------------------------------//
 
 let 오브젝트1: { age: number } = { age: 100 }
@@ -313,6 +389,10 @@ let 오브젝트2: {
 // [2] 다른점
 // interface : 중복선언 가능(합쳐짐)
 // type : 중복선언 불가능
+
+// implements
+// interface는 object 타입 지정할 때 사용하는데, 사실 용도가 하나 더 있다.
+// class 타입을 확인하고 싶을 때도 interface 문법을 사용할 수 있는데 이때 implements 키워드가 필요하다.
 //------------------------------------------------------------//
 
 // type Square = { color: string, width: number };
@@ -323,7 +403,151 @@ interface 인터Square { //여기서는 위에 type과 동일
 let 인터네모: 인터Square = { color: 'red', width: 100 };
 
 
+//------------------------------------------------------------//
+// implements
+// implements는 타입지정문법이 아님
+// -implements는 interface에 들어있는 속성을 가지고 있는지 확인만 하는 뜻이기 때문에 class에 타입을 할당하고 변형시키는 키워드가 아님
+//------------------------------------------------------------//
 
+// class CCar로부터 생산되는 object들은 model, price 속성을 가짐
+//만약 class가 model, price 속성을 가지고 있는지 타입으로 확인하고 싶다면, interface + implements 키워드로 확인
+interface 임플CCarType{
+    model: string,
+    price: number
+}
+
+class 임플CCar2 implements 임플CCarType{ // class 이름 우측에 implements를 쓰고 interface 이름을 쓰면 "이 class가 이 interface에 있는 속성을 다 들고있어?"라고 확인 가능
+    // 다 들고 있으면 정상, 빠진속성있으면 에러
+    model: string;
+    price: number = 1000;
+    constructor(a: string) {
+        this.model = a
+    }
+}
+
+let 임플붕붕카2 = new 임플CCar2('super');
+
+
+//------------------------------------------------------------//
+// [3] in 키워드로 object narrowing
+// 속성명 in 오브젝트자료
+// in 키워드를 사용하려면 배타적인 속성을 사용해야함(예를들면 Fish에 swim있고, Bird에도 swim 있으면 사용 불가. 각각 swim, fly 있어서 사용가능)
+//------------------------------------------------------------//
+
+// 서로 가진 속성명(swim, fly)이 다르면 in 사용
+type 인Fish1 = {
+    swim: string
+}
+
+type 인Bird1 = {
+    fly: string
+}
+
+function 인날날1(animal: 인Fish1 | 인Bird1) { // animal 파라미터 하나를 받는데 type이 Fish 혹은
+    if ('swim' in animal) {//속성명 in 오브젝트자료
+        animal.swim //이제는 사용 가능
+    }
+}
+
+
+
+//------------------------------------------------------------//
+// index signatures
+// object 타입지정 한번에 가능
+//------------------------------------------------------------//
+
+// 원래(귀찮을수도? 모두 string 타입이라면 모든 속성은 string 이라고 타입지정이 가능한데.. 밑의 index signatures 봐보자)
+interface 크원래하던것{
+    name: string,
+    age: string,
+    location: string,
+}
+
+// index signatures(object 타입지정 한번에 가능)
+interface 크StringOnly{
+    [key:string] :string|number, //[key:string] 모든 문자로 된 속성 (=name,age,location)은 string 혹은 number 타입을 갖게 해줌
+}
+
+let 크Uuser:크StringOnly = {
+    name: "hailey",
+    age: 100,
+    locateion : "universe"
+}
+
+// index signature와 중복되는 속성(안됨)
+interface 크StringOnly2{
+    // age: number; // 에러 / 왜냐하면 [key:string]이라고 했는데, 이렇게 해버리면 얘가 number인지 string인지 헷갈려하기 때문에 중복X
+    age: "20", // 이건 가능함
+    [key:string] :string, 
+}
+
+
+
+//------------------------------------------------------------//
+// key of
+// key 값을 전부 가져옴
+//------------------------------------------------------------//
+
+// keyof PPerson // 왼쪽에 keyof를 붙이면, 오른쪽 PPerson 객체의 키값들을 가져와서 union 타입으로 만들어줌. 즉 이 자리에 새로운 union 타입이 남음. "age"|"name" 타입이 남음
+interface 키옵PPerson{
+    age: number,
+    name:string
+}
+
+// 키옵PPersonKeys 타입에 keyof 키옵PPerson (=age|name의 union 타입) 부여한 것
+type 키옵PPersonKeys = keyof 키옵PPerson;
+let 키옵aaa: 키옵PPersonKeys = "name";
+// 키옵aaa는 키옵PPersonKeys 리터럴타입으로 부여한 것
+
+//------------------------------------------------------------//2-015
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+// 타입 변환을 자동으로 해주는 타입변환기 만들어서 사용하기 ★★★
+//------------------------------------------------------------//
+
+// 만약 이런 난잡한 코드를 발견할 경우.. string으로 바꾸고 싶을 때
+type 타변Carrr = {
+    color: boolean,
+    model: boolean,
+    price: boolean | number
+}
+
+
+type 타변TypeChanger<MyType> = {
+    [key in keyof MyType] : string
+}
+
+type 타변새로운타입 = 타변TypeChanger<Carrr>
+
+/*
+TypeChanger에 Generic <MyType>붙여주기 : 타입 나중에 추후지정하는것
+객체에 사용가능!
+
+그렇게 한 다음에 객체 안에는 key 값을 MyType으로 순회하게 하고, 그건 string으로 type 지정해주기
+
+(자세히 살펴보면 
+[1] keyof MyType = 파라미터로 들어온 object타입의 key값 = color|model|price 의 leteral union type
+
+[2] key in 구문은 TypeScript에서 mapped type을 정의할 때 사용되는 구문이며 기존의 타입을 변환하여 새로운 타입을 만들어내는데 사용. for...in 루프와 유사한 방식으로 작동. 즉 MyType의 프로퍼티 키들을 순회하며 각각의 프로퍼티에 대한 새로운 타입을 정의한다는 의미)
+
+새로운타입에 TypeChanger지정해주는데 <Carrr>로 <MyType>에 Generic 
+즉 MyType에 Carrr 객체타입이 들어감 => key값으로 MyType순회할때 Carrr의 color,model,price가 순회하는 것임
+
+만약 price 부분만 string|number하고 싶으면 다음시간 내용 확인 3항연산자 등 사용하기
+*/
+
+
+/*
+이런 변환기는 어떻게 만들어야할까요?
+object안에 들어있는 모든 속성을
+string, number 이렇게 고정된 타입으로 변환해주는게 아니라
+내가 원하는 타입을 입력하면 그걸로 변환해주는 범용성 좋은 변환기를 만들어보십시오.
+*/
+type 타변TypeChanger3<MyT, T> = { //타입파라미터 2개 가넝
+    [key in keyof MyT]: T;
+}
+
+type 타변새로운타입이다냥2 = 타변TypeChanger3<Bus, string>; // 타입 파라미터 자리에 T 하나 더 입력가넝
+type 타변새로운타입이다냥3 = 타변TypeChanger3<Bus, string[]>; // 타입 파라미터 자리에 T 하나 더 입력가넝
 
 
 //-------------------------------------------------------------------------------------------//
@@ -336,6 +560,7 @@ let 인터네모: 인터Square = { color: 'red', width: 100 };
 // rest parameter
 // Generic
 // extends (Generic 타입제한)
+// tuple(rest parameter 타입지정시 tuple가능)
 //------------------------------------------------------------//
 
 function 함수함수1( x:number):number { //파라미터 number, return number로 지정
@@ -388,6 +613,28 @@ function rest함수파라미터1(...a: number[]) { // rest parameter는 []에 �
 }
 
 함수파라미터1(1, 2, 3, 4, 5, 100)
+
+
+//------------------------------------------------------------//2-010
+// 함수에서 쓰는 tuple
+// - rest parameter 타입지정시 tuple 가능
+//------------------------------------------------------------//
+
+// rest parameter type
+function 튜플함수우2(...x:[number, string]) { // tuple type으로 받을 수 있음
+    console.log(x); 
+}
+
+튜플함수우2(1, 'hello'); // [1,'hello']
+
+//------------------------------------------------------------//
+
+// 바로 위에 거랑 이거랑 다른 것은 없지만.. 차이점은 rest parameter은 array에 담겨온다
+function 튜플함수우3(a: number, b: string){
+    console.log([a,b])
+}
+
+튜플함수우3(100, 'hi');
 
 
 
